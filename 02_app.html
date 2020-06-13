@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <style>
+      input.ng-invalid {
+        background-color: red;
+      }
+    </style>
+  </head>
   <body>
     <div ng-app="myApp" ng-controller="myCtrl">
-      Name: <input ng-model="name">
-      <p>The name is {{name}}</p>
+      <form name="myForm">
+        Name: <input name="myName" ng-model="name">
+        <p>The name is {{name}}</p>
+        Email: <input type="email" name="myEmail" ng-model="em">
+        <span ng-show="myForm.myEmail.$error.email">Not a valid email address</span>
+        <h1>Status</h1>
+        {{myForm.myEmail.$valid}}
+        {{myForm.myEmail.$dirty}}
+        {{myForm.myEmail.$touched}}
+      </form>
     </div>
   </body>
   <script src="02_app.module.js"></script>
