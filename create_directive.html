@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-  <body>
-    <div ng-app="myApp">
-      <span w3-test-directive></span>
-      <h1 w3-test-directive></h1>
-    </div>
+  <body ng-app="myApp">
+    <h1 w3-test-directive></h1>
+    <w3-test-directive></w3-test-directive>
+    <div class="w3-test-directive"></div>
   </body>
   <script>
     var app = angular.module("myApp", []);
     app.directive("w3TestDirective", function() {
       return {
+        restrict: "EAC",
         template: "This is a custom directive"
       };
     });
