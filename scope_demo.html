@@ -3,15 +3,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <body ng-app="myApp">
     <p>The rootScope's color:</p>
-    <p style="color:{{color}}">{{color}}</p>
+    <p style="color:{{color}}">{{color | uppercase}}</p>
 
     <div ng-controller="myCtrl">
       <p>The controller's color:</p>
-      <p style="color:{{color}}">{{color}}</p>
+      <p style="color:{{color}}">{{color | uppercase}}</p>
     </div>
 
     <p>The rootScope's color:</p>
-    <p style="color:{{color}}">{{color}}</p>
+    <p style="color:{{color}}">{{color | uppercase}}</p>
 
   <script>
     var app = angular.module('myApp', []);
