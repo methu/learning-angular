@@ -7,18 +7,18 @@
   </head>
   <body>
     <div ng-app="myApp" ng-controller="myCtrl">
-      Next todo: <input type="text" ng-model="next">
+      Next todo: <input type="text" name="next" ng-model="next" required>
       <button ng-click="addTodo(next)">Add</button>
       <h3>To Do</h3>
       <ul>
-        <li style="list-style-type:none" ng-repeat="item in todoList">
-          <input type=checkbox ng-click="addDone(item)">{{item}}
+        <li style="list-style-type:none" ng-repeat="item in todoList | orderBy:item">
+          <input type=checkbox ng-click="addDone(item)">{{item | capitalize}}
         </li>
       </ul>
       <h3>Done</h3>
       <ul>
-        <li style="text-decoration: line-through; cursor:pointer" ng-repeat="item in doneList">
-          <span ng-click="undone(item)">{{item}}</span>
+        <li style="text-decoration: line-through; cursor:pointer" ng-repeat="item in doneList | orderBy:item">
+          <span ng-click="undone(item)">{{item | capitalize}}</span>
         </li>
       </ul>
     </div>
