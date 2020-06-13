@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <body>
+    <div ng-app="myApp">
+      <div ng-controller="myCtrl">
+        <p>Subjects</p>
+        <ul>
+          <li ng-repeat="s in subject_words">
+            {{ s }}
+          </li>
+        </ul>
+        <p>Verbs</p>
+        <ul>
+          <li ng-repeat="v in verb_words">
+            {{ v }}
+          </li>
+        </ul>
+        <p>Objects</p>
+        <ul>
+          <li ng-repeat="o in object_words">
+            {{ o }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script>
+    var app = angular.module("myApp", []);
+    app.controller("myCtrl", function($scope) {
+      $scope.subject_words = ["I", "You", "He", "She"];
+      $scope.verb_words = ["like", "hate", "adore", "want"];
+      $scope.object_words = ["apple", "books", "meat", "comedy"];
+    });
+  </script>
+</html>
