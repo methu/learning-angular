@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <body ng-app="">
+    <div>
+      <span>Type the color for this input box</span>
+      <input style="background-color:{{color}}" ng-model="color">
+    </div>
+
+    <div ng-init="quantity=23;cost=5">
+      <p>Total in dollar: {{quantity * cost}}</p>
+      <p>Same expression using ng-bind: <span ng-bind="quantity * cost"></span></p>
+    </div>
+
+    <div ng-init="firstName='Alan';lastName='Zhang'">
+      <p>The name is {{ firstName + " " + lastName }}</p>
+    </div>
+
+    <div ng-init="person={firstName:'Alan',lastName:'Zhang'}">
+      <p>The name is <span ng-bind="person.lastName"></span></p>
+    </div>
+
+    <div ng-init="points=[1,15,19,2,40]">
+      <p>The third result is {{ points[2] }}</p>
+    </div>
+
+  </body>
+</html>
