@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  </head>
+  <body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+      <p>{{myUrl}}</p>
+      <p>Current time: {{theTime}}</p>
+      <p>Likes: {{likeNum}}</p>
+      <button ng-click="like()">Like</button>
+    </div>
+  </body>
+  <script>
+    var app = angular.module('myApp', []);
+    app.service('numbers', function() {
+      this.plusOne = function(x) {
+        return x+1;
+      }
+    });
+    app.controller('myCtrl', function($scope, $location, $timeout, $interval, numbers) {
+      $scope.myUrl = $location.absUrl();
+      $scope.likeNum = 0;
+      $scope.like = function() {
+        //$scope.likeNum++
+        $scope.likeNum = numbers.plusOne($scope.likeNum);
+      }
+      $timeout(function() {
+        $scope.myUrl = "https://www.google.com";
+      }, 2000);
+      $interval(function() {
+        $scope.theTime = new Date().toLocaleTimeString();
+      }, 1000);
+    });
+  </script>
+</html>
