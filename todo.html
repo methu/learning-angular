@@ -11,14 +11,14 @@
       <button ng-click="addTodo(next)">Add</button>
       <h3>To Do</h3>
       <ul>
-        <li style="list-style-type:none" ng-repeat="item in todoList | orderBy:item">
-          <input type=checkbox ng-click="addDone(item)">{{item | capitalize}}
+        <li style="list-style-type:none" ng-repeat="item in todoList">
+          <input type=checkbox ng-click="addDone(item,$index)">{{item | capitalize}}
         </li>
       </ul>
       <h3>Done</h3>
       <ul>
-        <li style="text-decoration: line-through; cursor:pointer" ng-repeat="item in doneList | orderBy:item">
-          <span ng-click="undone(item)">{{item | capitalize}}</span>
+        <li style="text-decoration:line-through; cursor:pointer" ng-repeat="item in doneList">
+          <span ng-click="undone(item,$index)">{{item | capitalize}}</span>
         </li>
       </ul>
     </div>
