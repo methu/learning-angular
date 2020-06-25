@@ -9,6 +9,8 @@
       <p>Current time: {{theTime}}</p>
       <p>Likes: {{likeNum}}</p>
       <button ng-click="like()">Like</button>
+      <p>Roll of a 20-side die: {{d20 | saneSequence}}</p>
+      <button ng-click="rollD20()">Roll</button>
     </div>
   </body>
   <script>
@@ -18,12 +20,21 @@
         return x+1;
       }
     });
+    app.filter('saneSequence', ['numbers', function(numbers) {
+      return function(x) {
+        return numbers.plusOne(x);
+      }
+    }]);
     app.controller('myCtrl', function($scope, $location, $timeout, $interval, numbers) {
       $scope.myUrl = $location.absUrl();
       $scope.likeNum = 0;
+      $scope.d20 = getRandomInt(20);
       $scope.like = function() {
         //$scope.likeNum++
         $scope.likeNum = numbers.plusOne($scope.likeNum);
+      }
+      $scope.rollD20 = function() {
+        $scope.d20 = getRandomInt(20);
       }
       $timeout(function() {
         $scope.myUrl = "https://www.google.com";
@@ -31,6 +42,10 @@
       $interval(function() {
         $scope.theTime = new Date().toLocaleTimeString();
       }, 1000);
+
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
     });
   </script>
 </html>
