@@ -4,21 +4,34 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="todo.module.js"></script>
     <script src="todo.controller.js"></script>
+    <style>
+      input.ng-invalid {
+        background-color:lightpink;
+      }
+    </style>
   </head>
   <body>
     <div ng-app="myApp" ng-controller="myCtrl">
-      Next todo: <input type="text" name="next" ng-model="next" required>
+      Next todo: <input type="text" name="next" ng-model="next" ng-keypress="checkKeyPress($event,next)" required>
       <button ng-click="addTodo(next)">Add</button>
       <h3>To Do</h3>
       <ul>
         <li style="list-style-type:none" ng-repeat="item in todoList">
-          <input type=checkbox ng-click="addDone(item,$index)">{{item | capitalize}}
+          <span ng-mouseenter="deleteToDoBtn=true" ng-mouseleave="deleteToDoBtn=false" ng-click="edit[$index]=true">
+            <input type="checkbox" ng-click="addDone(item,$index)">
+            <span ng-show="!edit[$index]">{{item | capitalize}}</span>
+            <input type="text" placeholder="{{item | capitalize}}" ng-model="todo_$index" ng-show="edit[$index]">
+            <button ng-show="deleteToDoBtn" ng-click="deleteTodo($index)">X</button>
+          </span>
         </li>
       </ul>
       <h3>Done</h3>
       <ul>
         <li style="text-decoration:line-through; cursor:pointer" ng-repeat="item in doneList">
-          <span ng-click="undone(item,$index)">{{item | capitalize}}</span>
+          <span ng-mouseenter="deleteDoneBtn=true" ng-mouseleave="deleteDoneBtn=false" ng-click="undone(item,$index)">
+            {{item | capitalize}}
+            <button ng-show="deleteDoneBtn" ng-click="deleteDone($index)">X</button>
+          </span>
         </li>
       </ul>
     </div>
