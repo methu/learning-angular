@@ -20,7 +20,7 @@
           <span ng-mouseenter="deleteToDoBtn=true" ng-mouseleave="deleteToDoBtn=false" ng-click="edit[$index]=true">
             <input type="checkbox" ng-click="addDone(item,$index)">
             <span ng-show="!edit[$index]">{{item | capitalize}}</span>
-            <input type="text" placeholder="{{item | capitalize}}" ng-model="todo_$index" ng-show="edit[$index]">
+            <input type="text" value="{{item | capitalize}}" ng-show="edit[$index]" ng-keypress="checkKeyPress($event, '', $index)" required>
             <button ng-show="deleteToDoBtn" ng-click="deleteTodo($index)">X</button>
           </span>
         </li>

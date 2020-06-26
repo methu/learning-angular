@@ -81,12 +81,16 @@ app.controller("myCtrl", function($scope) {
    * conditions:
    *   - if enter key is pressed at the main input, add next to Todo list
    *   - if enter key is pressed at the item input, change the item string and show the new string
-   *   - if ESC key is pressed at the item input, cancel the change
    */
-  $scope.checkKeyPress = function($event, item) {
+  $scope.checkKeyPress = function($event, item, index) {
     var keyCode = $event.which || $event.keyCode;
     if (keyCode === 13) {
-      $scope.addTodo(item)
+      if (index === undefined) {
+        $scope.addTodo(item);
+      } else if ($event.target.value.trim()) {
+        $scope.todoList[index] = $event.target.value;
+        $scope.edit[index] = false;
+      }
     }
   }
 });
