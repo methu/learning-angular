@@ -18,13 +18,14 @@
               <button ng-click="addTodo()" class="w3-btn w3-padding w3-green">Add</button>
             </div>
           </div>
+          <p class="w3-text-red">{{errorText}}</p>
         </header>
         <ul class="w3-ul">
-          <li ng-repeat="item in todoList" class="w3-padding-16" ng-mouseenter="deleteToDoBtn=true" ng-mouseleave="deleteToDoBtn=false" style="cursor:pointer>
+          <li ng-repeat="item in todoList" class="w3-padding-16" ng-mouseenter="deleteToDoBtn=true" ng-mouseleave="deleteToDoBtn=false" style="cursor:pointer">
             <span ng-click="edit[$index]=true">
-              <input type="checkbox" ng-click="addDone(item,$index)">
-              <span ng-show="!edit[$index]">{{item | capitalize}}</span>
-              <input type="text" value="{{item | capitalize}}" ng-show="edit[$index]" ng-keypress="checkKeyPress($event, $index)" required>
+              <input type="checkbox" ng-click="addDone($index)">
+              <span ng-show="!edit[$index]">{{item}}</span>
+              <input type="text" value="{{item}}" ng-show="edit[$index]" ng-keypress="checkKeyPress($event, $index)" required>
               <span ng-show="deleteToDoBtn" ng-click="deleteTodo($index)" class="w3-right w3-margin-right">X</span>
             </span>
           </li>
@@ -37,8 +38,8 @@
         </header>
         <ul class="w3-ul">
           <li ng-mouseenter="deleteDoneBtn=true" ng-mouseleave="deleteDoneBtn=false" style="text-decoration:line-through" ng-repeat="item in doneList" class="w3-padding-16">
-            <span ng-click="undone(item,$index)" style="cursor:pointer">
-              {{item | capitalize}}
+            <span ng-click="undone($index)" style="cursor:pointer">
+              {{item}}
               <span ng-show="deleteDoneBtn" ng-click="deleteDone($index)" class="w3-right w3-margin-right">X</span>
             </span>
           </li>

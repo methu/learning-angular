@@ -13,45 +13,44 @@ app.controller("myCtrl", function($scope) {
    *   - next doesn't exist in the Done list already
    */
   $scope.addTodo = function() {
-    if ($scope.next && !$scope.doneList.includes($scope.next) && !$scope.todoList.includes($scope.next)) {
+    if (!$scope.next) {
+      $scope.errorText = "Can't add empty todo.";
+    } else if ($scope.doneList.includes($scope.next)) {
+      $scope.errorText = "The item is done already.";
+    } else if ($scope.todoList.includes($scope.next)) {
+      $scope.errorText = "The item is already in the list.";
+    } else {
       $scope.todoList.push($scope.next);
       $scope.edit.push(false);
       $scope.next = '';
-      return true;
+      $scope.errorText = '';
     }
-    return false;
   }
 
   /**
    * move an item from Todo to Done list
    * param:
-   *   - item: a string to move
    *   - index: the index of the string in the Todo list
    */
-  $scope.addDone = function(item, index) {
-    if ($scope.todoList.includes(item)) {
-      $scope.todoList.splice(index, 1);
-      $scope.edit.splice(index, 1);
-      $scope.doneList.push(item);
-      return true;
-    }
-    return false;
+  $scope.addDone = function(index) {
+    var item = $scope.todoList[index];
+    $scope.todoList.splice(index, 1);
+    $scope.edit.splice(index, 1);
+    $scope.doneList.push(item);
+    $scope.errorText = '';
   }
 
   /**
    * move an item from Done to Todo list
    * param:
-   *   - item: a string to move
    *   - index: the index of the string in the Done list
    */
-  $scope.undone = function(item, index) {
-    if ($scope.doneList.includes(item)) {
-      $scope.doneList.splice(index, 1);
-      $scope.todoList.push(item);
-      $scope.edit.push(false);
-      return true;
-    }
-    return false;
+  $scope.undone = function(index) {
+    var item = $scope.doneList[index];
+    $scope.doneList.splice(index, 1);
+    $scope.todoList.push(item);
+    $scope.edit.push(false);
+    $scope.errorText = '';
   }
 
   /**
@@ -62,6 +61,7 @@ app.controller("myCtrl", function($scope) {
   $scope.deleteTodo = function(index) {
     $scope.todoList.splice(index, 1);
     $scope.edit.splice(index, 1);
+    $scope.errorText = '';
   }
 
   /**
@@ -71,13 +71,13 @@ app.controller("myCtrl", function($scope) {
    */
   $scope.deleteDone = function(index) {
     $scope.doneList.splice(index, 1);
+    $scope.errorText = '';
   }
 
   /**
    * check keypress
    * param:
    *   - $event: the event object
-   *   - item: the string in the input when the key is pressed
    * conditions:
    *   - if enter key is pressed at the main input, add next to Todo list
    *   - if enter key is pressed at the item input, change the item string and show the new string
@@ -87,9 +87,18 @@ app.controller("myCtrl", function($scope) {
     if (keyCode === 13) {
       if (index === undefined) {
         $scope.addTodo($scope.next);
-      } else if ($event.target.value.trim()) {
-        $scope.todoList[index] = $event.target.value;
-        $scope.edit[index] = false;
+      } else {
+        var editedItem = $event.target.value.trim();
+        if (!$scope.todoList.includes(editedItem)){
+          $scope.todoList[index] = editedItem;
+          $scope.edit[index] = false;
+          $scope.errorText = '';
+        } else if (index != $scope.todoList.indexOf(editedItem)) {
+          $scope.errorText = "The item is already in the list.";
+        } else {
+          $scope.errorText = '';
+          $scope.edit[index] = false;
+        }
       }
     }
   }
