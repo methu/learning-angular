@@ -12,15 +12,15 @@
   </head>
   <body>
     <div ng-app="myApp" ng-controller="myCtrl">
-      Next todo: <input type="text" name="next" ng-model="next" ng-keypress="checkKeyPress($event,next)" required>
-      <button ng-click="addTodo(next)">Add</button>
+      Next todo: <input type="text" name="next" ng-model="next" ng-keypress="checkKeyPress($event)" required>
+      <button ng-click="addTodo()">Add</button>
       <h3>To Do</h3>
       <ul>
         <li style="list-style-type:none" ng-repeat="item in todoList">
           <span ng-mouseenter="deleteToDoBtn=true" ng-mouseleave="deleteToDoBtn=false" ng-click="edit[$index]=true">
             <input type="checkbox" ng-click="addDone(item,$index)">
             <span ng-show="!edit[$index]">{{item | capitalize}}</span>
-            <input type="text" value="{{item | capitalize}}" ng-show="edit[$index]" ng-keypress="checkKeyPress($event, '', $index)" required>
+            <input type="text" value="{{item | capitalize}}" ng-show="edit[$index]" ng-keypress="checkKeyPress($event, $index)" required>
             <button ng-show="deleteToDoBtn" ng-click="deleteTodo($index)">X</button>
           </span>
         </li>

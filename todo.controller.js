@@ -12,9 +12,9 @@ app.controller("myCtrl", function($scope) {
    *   - next doesn't exist in the Todo list already
    *   - next doesn't exist in the Done list already
    */
-  $scope.addTodo = function(next) {
-    if (next && !$scope.doneList.includes(next) && !$scope.todoList.includes(next)) {
-      $scope.todoList.push(next);
+  $scope.addTodo = function() {
+    if ($scope.next && !$scope.doneList.includes($scope.next) && !$scope.todoList.includes($scope.next)) {
+      $scope.todoList.push($scope.next);
       $scope.edit.push(false);
       $scope.next = '';
       return true;
@@ -82,11 +82,11 @@ app.controller("myCtrl", function($scope) {
    *   - if enter key is pressed at the main input, add next to Todo list
    *   - if enter key is pressed at the item input, change the item string and show the new string
    */
-  $scope.checkKeyPress = function($event, item, index) {
+  $scope.checkKeyPress = function($event, index) {
     var keyCode = $event.which || $event.keyCode;
     if (keyCode === 13) {
       if (index === undefined) {
-        $scope.addTodo(item);
+        $scope.addTodo($scope.next);
       } else if ($event.target.value.trim()) {
         $scope.todoList[index] = $event.target.value;
         $scope.edit[index] = false;
