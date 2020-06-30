@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script>
+      var myApp = angular.module("myShoppingList", []);
+      myApp.controller("myCtrl", function($scope){
+        $scope.products = ["Milk", "Bread", "Cheese"];
+        $scope.addItem = function() {
+          $scope.errorText = "";
+          if (!$scope.addMe) {return;}
+          if ($scope.products.includes($scope.addMe)) {
+            $scope.errorText = "The item is already in the list.";
+          } else {
+            $scope.products.push($scope.addMe);
+          }
+        }
+        $scope.removeItem = function(id) {
+          $scope.errorText = "";
+          $scope.products.splice(id,1);
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div ng-app="myShoppingList" ng-controller="myCtrl" ng-cloak class="w3-card-2 w3-margin" style="max-width:400px;">
+      <header class="w3-container w3-light-gray w3-padding-16">
+        <h3>My Shopping List</h3>
+      </header>
+      <ul class="w3-ul">
+        <li ng-repeat="x in products" class="w3-padding-16">{{x}}<span ng-click="removeItem($index)" style="cursor:pointer" class="w3-right w3-margin-right">&times;</span></li>
+      </ul>
+      <div class="w3-container w3-light-gray w3-padding-16">
+        <div class="w3-row w3-margin-top">
+          <div class="w3-col s10">
+            <input ng-model="addMe" placeholder="Add shopping items here" class="w3-input w3-border w3-padding">
+          </div>
+          <div class="w3-col s2">
+            <button ng-click="addItem()" class="w3-btn w3-padding w3-green">Add</button>
+          </div>
+        </div>
+      <p class="w3-text-red">{{errorText}}</p>
+      </div>
+    </div>
+  </body>
+</html>
