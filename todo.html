@@ -1,39 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="todo.module.js"></script>
     <script src="todo.controller.js"></script>
-    <style>
-      input.ng-invalid {
-        background-color:lightpink;
-      }
-    </style>
   </head>
-  <body>
-    <div ng-app="myApp" ng-controller="myCtrl">
-      Next todo: <input type="text" name="next" ng-model="next" ng-keypress="checkKeyPress($event)" required>
-      <button ng-click="addTodo()">Add</button>
-      <h3>To Do</h3>
-      <ul>
-        <li style="list-style-type:none" ng-repeat="item in todoList">
-          <span ng-mouseenter="deleteToDoBtn=true" ng-mouseleave="deleteToDoBtn=false" ng-click="edit[$index]=true">
-            <input type="checkbox" ng-click="addDone(item,$index)">
-            <span ng-show="!edit[$index]">{{item | capitalize}}</span>
-            <input type="text" value="{{item | capitalize}}" ng-show="edit[$index]" ng-keypress="checkKeyPress($event, $index)" required>
-            <button ng-show="deleteToDoBtn" ng-click="deleteTodo($index)">X</button>
-          </span>
-        </li>
-      </ul>
-      <h3>Done</h3>
-      <ul>
-        <li style="text-decoration:line-through; cursor:pointer" ng-repeat="item in doneList">
-          <span ng-mouseenter="deleteDoneBtn=true" ng-mouseleave="deleteDoneBtn=false" ng-click="undone(item,$index)">
-            {{item | capitalize}}
-            <button ng-show="deleteDoneBtn" ng-click="deleteDone($index)">X</button>
-          </span>
-        </li>
-      </ul>
-    </div>
+  <body ng-app="myApp" ng-controller="myCtrl">
+      <div class="w3-card-2 w3-margin" style="max-width:400px">
+        <header class="w3-container w3-light-gray w3-padding-16">
+          <h3>Todos</h3>
+          <div class="w3-row w3-margin-top">
+            <div class="w3-col s10">
+              <input type="text" placeholder="Add todos here" name="next" ng-model="next" ng-keypress="checkKeyPress($event)" class="w3-input w3-border w3-padding" required>
+            </div>
+            <div class="w3-col s2">
+              <button ng-click="addTodo()" class="w3-btn w3-padding w3-green">Add</button>
+            </div>
+          </div>
+        </header>
+        <ul class="w3-ul">
+          <li ng-repeat="item in todoList" class="w3-padding-16" ng-mouseenter="deleteToDoBtn=true" ng-mouseleave="deleteToDoBtn=false" style="cursor:pointer>
+            <span ng-click="edit[$index]=true">
+              <input type="checkbox" ng-click="addDone(item,$index)">
+              <span ng-show="!edit[$index]">{{item | capitalize}}</span>
+              <input type="text" value="{{item | capitalize}}" ng-show="edit[$index]" ng-keypress="checkKeyPress($event, $index)" required>
+              <span ng-show="deleteToDoBtn" ng-click="deleteTodo($index)" class="w3-right w3-margin-right">X</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="w3-card-2 w3-margin" style="max-width:400px">
+        <header class="w3-container w3-light-gray w3-padding-16">
+          <h3>Done</h3>
+        </header>
+        <ul class="w3-ul">
+          <li ng-mouseenter="deleteDoneBtn=true" ng-mouseleave="deleteDoneBtn=false" style="text-decoration:line-through" ng-repeat="item in doneList" class="w3-padding-16">
+            <span ng-click="undone(item,$index)" style="cursor:pointer">
+              {{item | capitalize}}
+              <span ng-show="deleteDoneBtn" ng-click="deleteDone($index)" class="w3-right w3-margin-right">X</span>
+            </span>
+          </li>
+        </ul>
+      </div>
   </body>
 </html>

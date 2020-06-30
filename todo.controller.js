@@ -1,5 +1,5 @@
 app.controller("myCtrl", function($scope) {
-  $scope.todoList = [];
+  $scope.todoList = ["learn AngularJS", "learn Python", "learn PostgreSQL"];
   $scope.doneList = [];
   $scope.edit = [];
   
