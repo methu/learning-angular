@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <style>
       input.ng-invalid {
@@ -9,6 +10,7 @@
     </style>
   </head>
   <body>
+
     <div ng-app="myApp" ng-controller="myCtrl">
       <form name="myForm">
         Name: <input name="myName" ng-model="name">
@@ -20,7 +22,17 @@
         {{myForm.myEmail.$dirty}}
         {{myForm.myEmail.$touched}}
       </form>
+
+      <textarea ng-model="edit.target_stores" row="10"></textarea>
+      <div ng-repeat="b in edit.related_brands track by $index">
+        <h1>{{b.name}}</h1>
+        <p ng-repeat="s in b.stores track by $index">
+          <input type="checkbox" ng-model="s.in_article" ng-change="checkStore(s)">
+          {{s.name}} - {{s.in_article}}
+        </p>
+      </div>
     </div>
+
   </body>
   <script src="02_app.module.js"></script>
   <script src="02_app.controller.js"></script>
