@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <style>
       input.ng-invalid {
         background-color: red;
@@ -24,11 +25,12 @@
       </form>
 
       <textarea ng-model="edit.target_stores" row="10"></textarea>
-      <div ng-repeat="b in edit.related_brands track by $index">
+      <select name="multiSelect" ng-model="edit.related_brands" multiple ng-options="b.name for b in brands"></select>
+      <div ng-repeat="b in edit.related_brands">
         <h1>{{b.name}}</h1>
-        <p ng-repeat="s in b.stores track by $index">
+        <p ng-repeat="s in b.stores">
           <input type="checkbox" ng-model="s.in_article" ng-change="checkStore(s)">
-          {{s.name}} - {{s.in_article}}
+          {{s.name}}
         </p>
       </div>
     </div>

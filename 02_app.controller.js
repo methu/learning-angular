@@ -3,8 +3,8 @@ app.controller("myCtrl", function($scope) {
   $scope.em = "loikpac@gmail.com";
 
   $scope.edit = {};
-  $scope.edit.target_stores = [1,2,3,4,5];
-  $scope.edit.related_brands = [
+  $scope.edit.target_stores = [];
+  $scope.brands = [
     {
       name: "brand1",
       stores: [
@@ -47,12 +47,19 @@ app.controller("myCtrl", function($scope) {
 
     $scope.checkStore = function(store) {
       if (store.in_article) {
-        console.log('add store #' + store.id + ' to target_stores');
+        $scope.edit.target_stores = _.union($scope.edit.target_stores, [store.id]);
       } else {
-        var index = $scope.edit.target_stores.indexOf(store.id);
-        if (index !== -1) {
-          console.log('remove store #' + store.id + ' from target_stores');
-        }
+        $scope.edit.target_stores = _.without($scope.edit.target_stores, store.id);
       }
     };
+
+    $scope.$watch('edit.related_brands', function(nv, ov) {
+      var brands = _.difference(ov, nv);
+      _.each(brands, b => {
+        _.each(b.stores, s => {
+          s.in_article = false;
+          $scope.edit.target_stores = _.without($scope.edit.target_stores, s.id);
+        });
+      });
+    });
 });
