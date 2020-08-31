@@ -24,12 +24,14 @@
         {{myForm.myEmail.$touched}}
       </form>
 
+      <h1>Target Stores</h1>
       <textarea ng-model="edit.target_stores" row="10"></textarea>
+      <button ng-click="updateTargets()">Update</button>
       <select name="multiSelect" ng-model="edit.related_brands" multiple ng-options="b.name for b in brands"></select>
       <div ng-repeat="b in edit.related_brands">
         <h1>{{b.name}}</h1>
         <p ng-repeat="s in b.stores">
-          <input type="checkbox" ng-model="s.in_article" ng-change="checkStore(s)">
+          <input style="width:30px;height:30px" type="checkbox" ng-model="s.in_article" ng-change="checkStore(s)">
           {{s.name}}
         </p>
       </div>

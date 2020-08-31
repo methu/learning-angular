@@ -6,6 +6,7 @@ app.controller("myCtrl", function($scope) {
   $scope.edit.target_stores = [];
   $scope.brands = [
     {
+      id: 1,
       name: "brand1",
       stores: [
         {
@@ -19,6 +20,7 @@ app.controller("myCtrl", function($scope) {
       ]
     },
     {
+      id: 2,
       name: "brand2",
       stores: [
         {
@@ -32,6 +34,7 @@ app.controller("myCtrl", function($scope) {
       ]
     },
     {
+      id: 3,
       name: "brand3",
       stores: [
         {
@@ -44,6 +47,28 @@ app.controller("myCtrl", function($scope) {
         }
       ]
     }];
+
+    var storeMap = {
+      1: {
+        id: 1,
+        brand_id: 1
+      },
+      2: {
+        id: 2,
+        brand_id: 1
+      },
+      5: {
+        id: 5,
+        brand_id: 3
+      },
+      6: {
+        id: 6,
+        brand_id: 3
+      }
+    };
+
+    var brandMap = {};
+    _.each($scope.brands, b => brandMap[b.id] = b);
 
     $scope.checkStore = function(store) {
       if (store.in_article) {
@@ -62,4 +87,10 @@ app.controller("myCtrl", function($scope) {
         });
       });
     });
+
+    $scope.updateTargets = function() {
+      var store_ids = [];
+      var stores = _.map(store_ids, s_id => storeMap[s_id]);
+      console.log(stores);
+    }
 });
