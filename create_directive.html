@@ -1,17 +1,92 @@
 <!DOCTYPE html>
 <html>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-  <body ng-app="myApp">
-    <h1 w3-test-directive></h1>
-    <w3-test-directive></w3-test-directive>
-    <div class="w3-test-directive"></div>
+  <head>
+    <style>
+      .parent {
+        border: 20px solid #676767;
+        padding : 20px;
+      }
+      .parent,.directive {
+        position: relative;
+      }
+      .parent:after,.directive:after {
+        display: inline;
+        color: #fff;
+        font-size: normal;
+        position: absolute;
+        top:-20px;
+        left:-20px;
+        z-index: 100;
+        padding: 1px 5px;
+        background-color: rgba(0,0,0,0.5);
+      }
+      .parent:after {
+        content: "MainCtrl Scope";
+      }
+      .directive {
+        padding: 20px;
+        border: 20px solid #cbccdd;
+        margin-top: 20px;
+      }
+      .directive:after {
+        content: "Directive Scope"
+      }
+      .line {
+        border-bottom: 1px dotted #ccc;
+        padding: 5px 0;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  </head>
+  <body>
+    <div ng-app="app">
+      <div class="parent" ng-controller="MainCtrl">
+        <div class="line">
+          Name inside parent scope is: <strong>{{name}}</strong>  
+          <input type="button" ng-click="reverseName()" value="Reverse name" />
+        </div> 
+        <div class="line">
+          Color inside parent scope is: <strong style="color:{{color}}">{{color|uppercase}}</strong>  
+          <input type="button" ng-click="randomColor()" value="Randomize color" />
+        </div>
+        <div class="directive" my-directive
+          name="{{name}}"
+          color="color"
+          reverse="reverseName()"
+        ></div>
+      </div>
+  </div>
   </body>
   <script>
-    var app = angular.module("myApp", []);
-    app.directive("w3TestDirective", function() {
+    var app = angular.module("app", []);
+
+    app.controller("MainCtrl", function( $scope ){
+      $scope.name = "Harry";
+      $scope.color = "#333333";
+      $scope.reverseName = function(){
+        $scope.name = $scope.name.split("").reverse().join("");
+      };
+      $scope.randomColor = function(){
+        $scope.color = '#'+Math.floor(Math.random()*16777215).toString(16);
+      };
+    });
+
+    app.directive("myDirective", function(){
+
       return {
-        restrict: "EAC",
-        template: "This is a custom directive"
+        restrict: "EA",
+        scope: {
+          name: "@",
+          color: "=",
+          reverse: "&"
+        },
+        template: [
+          "<div class='line'>",
+          "Name : <strong>{{name}}</strong>;  Change name:<input type='text' ng-model='name' /><br/>",
+          "</div><div class='line'>",
+          "Color : <strong style='color:{{color}}'>{{color|uppercase}}</strong>;  Change color:<input type='text' ng-model='color' /><br/></div>",
+          "<br/><input type='button' ng-click='reverse()' value='Reverse Name'/>"
+        ].join("")
       };
     });
   </script>
