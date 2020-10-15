@@ -5,8 +5,6 @@ app.controller("myCtrl", function($scope) {
   
   /**
    * add an item to the Todo list
-   * param:
-   *   - next: a string to add
    * conditions:
    *   - next is not empty nor a string of space
    *   - next doesn't exist in the Todo list already

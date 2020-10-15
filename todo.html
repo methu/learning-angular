@@ -26,8 +26,8 @@
               <input type="checkbox" ng-click="addDone($index)">
               <span ng-show="!edit[$index]" style="cursor:pointer">{{item}}</span>
               <input type="text" value="{{item}}" ng-show="edit[$index]" ng-keypress="checkKeyPress($event, $index)" required>
-              <span style="cursor:pointer" ng-show="deleteToDoBtn" ng-click="deleteTodo($index)" class="w3-right w3-margin-right">X</span>
             </span>
+            <span style="cursor:pointer" ng-show="deleteToDoBtn" ng-click="deleteTodo($index)" class="w3-right w3-margin-right">X</span>
           </li>
         </ul>
       </div>
